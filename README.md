@@ -50,4 +50,3 @@ Please take a look at [CONTRIBUTING](docs/CONTRIBUTING.md)
 - [text/text](https://site.example)
 - [Google](http://www.google.com)
 
-## License
