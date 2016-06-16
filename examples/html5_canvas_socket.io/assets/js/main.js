@@ -12,10 +12,6 @@ $.getScript("assets/js/player.js", function() {});
 //Socket object
 var socket = io.connect('http://localhost:8080');
 
-socket.on('server_request', function(data) {
-    console.log('server sent some data: ' + data);
-});
-
 //File path variables
 var path_block_brick = 'assets/img/block-brick.png';
 var path_background_mario = 'assets/img/background-mario.png';
@@ -25,12 +21,26 @@ const FPS = 60;
 const TPS = 100;
 const APS = 7;
 
+
 $(document).ready(function() {
     //Object declarations
     var canvas = new Canvas('canvas-game-storming');
     var keyboard = new Keyboard();
-    var player = new Player(0, 0, 40, 40, path_block_brick);
+    var player = new Player("57620c3a9d88b94d26148189", 0, 0, 40, 40, path_block_brick);
     var background = new Sprite(path_background_mario);
+
+    //Socket callbacks
+    var onPlayerLocation = function(data) {
+        if(data && player) {
+            player.x = data.x;
+            player.y = data.y;
+        }
+        player.x = data.x;
+    }
+    
+    //Requests player's current location and handles the response
+    socket.emit('request_player_location', {"player": {"_id": player.id}});
+    socket.on('player_location', onPlayerLocation);
 
     //Frame draw loop
     setInterval(function() {

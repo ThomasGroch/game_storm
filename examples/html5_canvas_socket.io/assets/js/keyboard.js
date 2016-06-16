@@ -26,7 +26,6 @@ var Keyboard = function() {
 
     //Sets event listener to update the state of the key_map when a key is pressed
     $(document).keydown(function(e) {
-        socket.emit('client_request', {'message': 'key' + e.keyCode + ' was pressed'});
         keyboard.key_map.forEach(function(value, key) {
             if(e.keyCode == key) {
                 keyboard.key_map[key] = 1;

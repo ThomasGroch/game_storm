@@ -3,7 +3,7 @@
   * @author Cristian Van Herp cristian.vh95@gmail.com
 */
 
-var Player = function(x, y, w, h, sprite_file_path, speed = 4) {
+var Player = function(id, x, y, w, h, sprite_file_path, speed = 4) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -12,6 +12,7 @@ var Player = function(x, y, w, h, sprite_file_path, speed = 4) {
     this.velx = 0;
     this.vely = 0;
     this.sprite = null;
+    this.id = id;
 
     //Create sprite
     if(sprite_file_path) {
@@ -51,5 +52,6 @@ var Player = function(x, y, w, h, sprite_file_path, speed = 4) {
 
     this.update = function(keyboard) {
         this.move(keyboard);
+        socket.emit('save_location', {'player': {"_id": this.id, "x": this.x, "y": this.y}});
     }
 }
