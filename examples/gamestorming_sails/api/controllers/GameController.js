@@ -7,11 +7,18 @@
 
 module.exports = {
 	index: function(req, res) {
-		var name = req.param('name');
+		Player.find({}).exec(function(err, data) {
+			res.view({
+				players: data
+			});
+		});
+	},
+	play: function(req, res) {
+		var id = req.param('id');
 
-		Player.findOne({name: name}).exec(function(err, data) {
+		Player.findOne({id: id}).exec(function(err, data) {
 			if(!data) {
-				res.redirect('/home');
+				res.redirect('/game');
 				return;
 			}
 

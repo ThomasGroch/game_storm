@@ -1,0 +1,14 @@
+<input type="hidden" id="player" value="<%= JSON.stringify(player) %>">
+
+<script>
+    var player_info = JSON.parse($("#player").val());
+</script>
+
+<canvas width="800" height="600" id="canvas-game-storming"></canvas>
+
+<script src="/js/keyboard.js"></script>
+<script src="/js/canvas.js"></script>
+<script src="/js/sprite.js"></script>
+<script src="/js/player.js"></script>
+<script src="/js/enums.js"></script>
+<script src="/js/main.js"></script>

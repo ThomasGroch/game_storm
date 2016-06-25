@@ -3,37 +3,21 @@
   * @author Cristian Van Herp cristian.vh95@gmail.com
 */
 
-var Player = function(id, x, y, w, h, sprite_file_path, speed = 4) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.speed = speed;
+var Player = function(data) {
     this.velx = 0;
     this.vely = 0;
     this.sprite = null;
-    this.id = id;
+
+    for(var field in data) {
+        this[field] = data[field];
+    }
 
     //Create sprite
-    if(sprite_file_path) {
-        this.sprite = new Sprite(sprite_file_path);
+    if(this.sprite_file_path) {
+        this.sprite = new Sprite(this.sprite_file_path);
     }
     else {
         console.log('You must specify a sprite file path.');
-    }
-
-    this.data = function() {
-        return {
-            id: this.id,
-            data: this.state()
-        }
-    }
-
-    this.state = function() {
-        return {
-            x: this.x,
-            y: this.y
-        }
     }
 
     this.move = function(keyboard) {
@@ -61,11 +45,11 @@ var Player = function(id, x, y, w, h, sprite_file_path, speed = 4) {
     }
 
     this.draw = function(canvas) {
-        this.sprite.draw(canvas, this.x, this.y, this.w, this.h);
+        this.sprite.draw(canvas, this.x, this.y, this.width, this.height);
     }
 
     this.update = function(keyboard) {
         this.move(keyboard);
-        socket.emit('player_update', this.data());
+        socket.emit('player_update', this);
     }
 }

@@ -1,8 +1,6 @@
 module.exports = {
     game_socket: function(req, res) {
-        sails.io.on('connect', function(socket) {
-			SocketService.init_game_socket(socket);
-		});
+        sails.io.on('connect', SocketService.onConnect);
         res.send(200);
     }
 }

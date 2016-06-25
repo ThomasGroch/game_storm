@@ -20,17 +20,9 @@ $(document).ready(function() {
     //Object declarations
     var canvas = new Canvas('canvas-game-storming');
     var keyboard = new Keyboard();
-    var player = new Player(player_info.id, player_info.x, player_info.y, 40, 40, path_block_brick);
+    var player = new Player(player_info);
+    console.log(player);
     var background = new Sprite(path_background_mario);
-
-    //Socket callbacks
-    var onPlayerLocation = function(data) {
-        if(data && player) {
-            player.x = data.x;
-            player.y = data.y;
-        }
-        player.x = data.x;
-    }
 
     //Frame draw loop
     setInterval(function() {
